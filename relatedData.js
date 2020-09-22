@@ -20,13 +20,15 @@ const relatedSchema = new mongoose.Schema({
 
 const Track = mongoose.model('Track', relatedSchema);
 
-let saveTrack = function(trackData) {
+let saveTrack = function(trackData, cb) {
   let track = new Track(trackData);
   track.save((err, track) => {
     if (err) {
       console.log(chalk.red('Problem saving track', err));
+      cb(err);
     } else {
       console.log(chalk.blue(`Track ${track.song_id} saved`));
+      cb(null, track);
     }
   })
 };
@@ -41,12 +43,14 @@ let findTrack = function(id, cb) {
   })
 };
 
-let deleteTrack = function (id) {
+let deleteTrack = function (id, cb) {
   Track.findOneAndDelete({song_id: id}, (err, track) => {
     if (err) {
       console.log(chalk.red('Could not delete track'));
+      cb(err);
     } else {
       console.log(chalk.magenta('Track deleted'));
+      cb(null, track);
     }
   })
 };
