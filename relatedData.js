@@ -15,7 +15,8 @@ const relatedSchema = new mongoose.Schema({
   song_id: {type: Number, unique: true},
   plays: Number,
   likes: Number,
-  reposts: Number
+  reposts: Number,
+  related: [Number]
 });
 
 const Track = mongoose.model('Track', relatedSchema);
