@@ -1,3 +1,3 @@
-const relatedTracks = require('./relatedTracks.js');
+import relatedTracks from './relatedTracks.jsx';
 
-ReactDOM.render(relatedTracks, document.getElementById('related'));
+ReactDOM.render(<relatedTracks />, document.getElementById('related'));

@@ -12,7 +12,7 @@ class relatedTracks extends React.Component {
   render() {
     return (
       <>
-        <img className="band" src="https://i1.sndcdn.com/avatars-000153260008-nj3jj1-t200x200.jpg"/>
+        <img className="nicholas related-tracks band" src="https://i1.sndcdn.com/avatars-000153260008-nj3jj1-t200x200.jpg"/>
         <p>LionsBesideUs</p>
         <p>Last Chance</p>
         <p>&#9658 4</p>
@@ -23,3 +23,6 @@ class relatedTracks extends React.Component {
     )
   }
 }
+
+// export default relatedTracks;
+ReactDOM.render(<relatedTracks />, document.getElementById('related'));

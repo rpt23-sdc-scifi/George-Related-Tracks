@@ -1,9 +1,9 @@
 const path = require('path');
 
 module.exports = {
-  entry: './server/index.js',
+  entry: './client/relatedTracks.jsx',
   output: {
-    filename: 'index.js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'public'),
   },
 };
