@@ -8,10 +8,13 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "seed": "node ./seedData.js"
+    "seed": "node ./seedData.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "dependencies": {
     "chalk": "^4.1.0",
+    "express": "^4.17.1",
     "mongoose": "^5.10.6"
   },
   "devDependencies": {
