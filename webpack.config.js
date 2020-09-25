@@ -6,18 +6,18 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public'),
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
+  // resolve: {
+  //   extensions: ['.js', '.jsx']
+  // },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel',
         exclude: /node_modules/,
-        query: {
-          cacheDirectory: true,
-          presets: ['react', 'es2015']
+        use: {
+          loader: 'babel-loader',
+          // cacheDirectory: true,
+          options: {presets: ['@babel/preset-react', '@babel/preset-env']}
         }
       }
     ]
