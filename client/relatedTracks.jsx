@@ -24,5 +24,5 @@ class relatedTracks extends React.Component {
   }
 }
 
-// export default relatedTracks;
-ReactDOM.render(<relatedTracks />, document.getElementById('related'));
+export default relatedTracks;
+// ReactDOM.render(<relatedTracks />, document.getElementById('related'));

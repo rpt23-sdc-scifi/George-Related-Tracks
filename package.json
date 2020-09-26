@@ -10,7 +10,8 @@
   "scripts": {
     "seed": "node ./seedData.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode=development -d --watch"
+    "build": "webpack --mode=development -d --watch",
+    "start-server": "node server"
   },
   "dependencies": {
     "chalk": "^4.1.0",
