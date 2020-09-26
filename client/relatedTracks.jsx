@@ -1,6 +1,6 @@
-import React from 'react';
+// import React from 'react';
 
-class relatedTracks extends React.Component {
+class RelatedTracks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,5 +24,5 @@ class relatedTracks extends React.Component {
   }
 }
 
-export default relatedTracks;
+export default RelatedTracks;
 // ReactDOM.render(<relatedTracks />, document.getElementById('related'));
