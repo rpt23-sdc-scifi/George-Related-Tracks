@@ -8,13 +8,27 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "seed": "node ./seedData.js"
+    "seed": "node ./seedData.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=development -d --watch",
+    "start-server": "node server"
   },
   "dependencies": {
     "chalk": "^4.1.0",
-    "mongoose": "^5.10.6"
+    "express": "^4.17.1",
+    "favicon": "0.0.2",
+    "mongoose": "^5.10.6",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
   }
 }

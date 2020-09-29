@@ -22,6 +22,12 @@ let seedData = function() {
                 info.plays = Math.floor(Math.random() * 11);
                 info.likes = Math.floor(Math.random() * 11);
                 info.reposts = Math.floor(Math.random() * 11);
+                info.related = [];
+                let similar = Math.floor(Math.random() * 4);
+                for (let k = 1; k <= similar; k++) {
+                  let num = Math.ceil(Math.random() * 100);
+                  info.related.push(num);
+                }
                 relatedData.saveTrack(info, (err, data) => {
                   if (err) {
                     console.log(chalk.red('Problem seeding data: ', err));
