@@ -48,4 +48,6 @@ class RelatedTracks extends React.Component {
   }
 }
 
+export default RelatedTracks;
+
 ReactDOM.render(<RelatedTracks />, document.getElementById('related'));
