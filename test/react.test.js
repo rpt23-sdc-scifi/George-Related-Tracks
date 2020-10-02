@@ -16,10 +16,10 @@ describe('insert', () => {
   let db;
 
   beforeAll(async () => {
-    connection = await MongoClient.connect(global.test, {
+    connection = await MongoClient.connect('mongodb://localhost/test', {
       useNewUrlParser: true,
     });
-    db = await connection.db(global.Track);
+    db = await connection.db('Track');
   });
 
   afterAll(async () => {
