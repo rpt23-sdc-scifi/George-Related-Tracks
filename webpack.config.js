@@ -6,9 +6,6 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public'),
   },
-  // resolve: {
-  //   extensions: ['.js', '.jsx']
-  // },
   module: {
     rules: [
       {
@@ -16,7 +13,6 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          // cacheDirectory: true,
           options: {presets: ['@babel/preset-react', '@babel/preset-env']}
         }
       }

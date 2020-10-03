@@ -27,7 +27,6 @@ app.get('/relatedTracks/:song', (req, res) => {
             trackInfo.reposts = info.reposts;
             relatedInfo.push(trackInfo);
             if (relatedInfo.length === data.related.length) {
-              console.log(relatedInfo);
               res.send(relatedInfo);
             }
           }
