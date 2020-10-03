@@ -12,7 +12,7 @@ app.get('/relatedTracks/:song', (req, res) => {
   // console.log(chalk.bgWhite.black(req.params.song));
   db.findTrack(req.params.song, (err, data) => {
     if (err) {
-      console.log(chalk.red(`Can't find track: `, err));
+      console.log(chalk.red(`Problem obtaining track info: `, err));
     } else {
       let relatedInfo = [];
       for (let i = 0; i < data.related.length; i++) {

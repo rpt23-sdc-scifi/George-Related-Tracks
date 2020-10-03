@@ -1,15 +1,12 @@
-// import React from 'react';
-// import renderer from 'react-test-renderer';
-// import RelatedTracks from '../client';
 const {MongoClient} = require('mongodb');
+const Enzyme = require('enzyme');
+const Adapter = require('enzyme-adapter-react-16');
+const React = require('react');
+const {mount, shallow} = require('enzyme');
+import RelatedTracks from '../client/index.jsx';
+import 'regenerator-runtime/runtime';
 
-// test('Page renders', () => {
-//   const component = renderer.create(
-//     <RelatedTracks></RelatedTracks>
-//   );
-//   let tree = component.toJSON();
-//   expect(tree).toMatchSnapshot();
-// });
+Enzyme.configure({adapter: new Adapter()});
 
 describe('insert', () => {
   let connection;
@@ -54,7 +51,7 @@ describe('delete', () => {
     await db.close();
   });
 
-  it('should insert a doc into collection', async () => {
+  it('should delete a doc from collection', async () => {
     const users = db.collection('users');
 
     const mockUser = {_id: 'some-user-id', name: 'John'};
@@ -64,3 +61,10 @@ describe('delete', () => {
     expect(insertedUser).toEqual(null);
   });
 });
+
+describe('image exists', () => {
+  it ('should have an image', async () => {
+    const wrapper = await mount(<RelatedTracks />);
+    await expect(wrapper.find('img')).toBeTruthy();
+  })
+})
