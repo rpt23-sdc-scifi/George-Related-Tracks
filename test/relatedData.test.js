@@ -62,6 +62,32 @@ describe('delete', () => {
   });
 });
 
+describe('incorrect find', () => {
+  let connection;
+  let db;
+
+  beforeAll(async () => {
+    connection = await MongoClient.connect('mongodb://localhost/test', {
+      useNewUrlParser: true,
+    });
+    db = await connection.db('Track');
+  });
+
+  afterAll(async () => {
+    await connection.close();
+    await db.close();
+  });
+
+  it('should not find a non-existent doc from collection', async () => {
+    const users = db.collection('users');
+
+    const mockUser = {_id: 'other-user-id', name: 'Henry Ford'};
+
+    const insertedUser = await users.findOne({_id: 'other-user-id'});
+    expect(insertedUser).toEqual(null);
+  });
+});
+
 describe('image exists', () => {
   it ('should have an image', async () => {
     const wrapper = await mount(<RelatedTracks />);

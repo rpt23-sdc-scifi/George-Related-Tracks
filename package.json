@@ -9,7 +9,7 @@
   },
   "scripts": {
     "seed": "node ./seedData.js",
-    "test": "jest",
+    "test": "jest --collectCoverage",
     "build": "webpack --mode=development -d --watch",
     "start-server": "node server"
   },
