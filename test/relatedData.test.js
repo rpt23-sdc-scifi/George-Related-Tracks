@@ -5,6 +5,7 @@ const React = require('react');
 const {mount, shallow} = require('enzyme');
 import RelatedTracks from '../client/index.jsx';
 import 'regenerator-runtime/runtime';
+const sinon = require('sinon');
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -89,8 +90,42 @@ describe('incorrect find', () => {
 });
 
 describe('image exists', () => {
-  it ('should have an image', async () => {
-    const wrapper = await mount(<RelatedTracks />);
-    await expect(wrapper.find('img')).toBeTruthy();
+  it ('should have an image', async done => {
+    try {
+      const wrapper = await mount(<RelatedTracks />);
+      await expect(wrapper.find('img')).toBeTruthy();
+      done();
+    } catch (error) {
+      done(error);
+    }
   })
-})
+});
+
+// describe('state', () => {
+//   it ('state should have currentSong', async done => {
+//     try {
+//       let server = sinon.fakeServer.create();
+//       server.respondWith('GET', '/relatedTracks/:song', '[{song_id: 2, plays: 5, likes: 4, reposts: 3}]');
+//       const wrapper = await mount(<RelatedTracks />);
+//       await expect(wrapper.state).toHaveProperty('currentSong');
+//       server.respond();
+//       server.restore();
+//       done();
+//     } catch (error) {
+//       done(error);
+//     }
+//   });
+//   it ('state should have related', async done => {
+//     try {
+//       let server = sinon.fakeServer.create();
+//       server.respondWith('GET', '/relatedTracks/:song', '[{song_id: 2, plays: 5, likes: 4, reposts: 3}]');
+//       const wrapper = await mount(<RelatedTracks />);
+//       await expect(wrapper.state).toHaveProperty('related');
+//       server.respond();
+//       server.restore();
+//       done();
+//     } catch (error) {
+//       done(error);
+//     }
+//   })
+// });

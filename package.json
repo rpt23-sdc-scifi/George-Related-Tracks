@@ -23,7 +23,8 @@
     "mongoose": "^5.10.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-test-renderer": "^16.13.1"
+    "react-test-renderer": "^16.13.1",
+    "sinon": "^9.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
@@ -52,7 +53,9 @@
       "public"
     ],
     "preset": "@shelf/jest-mongodb",
-    "setupFilesAfterEnv": ["./node_modules/jest-enzyme/lib/index.js"],
+    "setupFilesAfterEnv": [
+      "./node_modules/jest-enzyme/lib/index.js"
+    ],
     "unmockedModulePathPatterns": [
       "node_modules/react/",
       "node_modules/enzyme/"

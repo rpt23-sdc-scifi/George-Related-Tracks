@@ -18,6 +18,7 @@ class RelatedTracks extends React.Component {
   }
 
   componentDidMount() {
+    // console.log('MOUNT STATE: 🤪', this.state);
     $.ajax(
       {
         url: '/relatedTracks/1',
@@ -29,6 +30,7 @@ class RelatedTracks extends React.Component {
   }
 
   render() {
+    // console.log('RENDER STATE: 🥶', this.state);
     return this.state.related.map(track => {
     let plays = [<span key={"spanPlays" + track.song_id}>&#9658;</span>, ` ${track.plays}`];
     let likes = [<span key={"spanLikes" + track.song_id} >&#9829;</span>, ` ${track.likes}`];
