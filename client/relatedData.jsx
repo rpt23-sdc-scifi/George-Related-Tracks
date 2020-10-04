@@ -38,13 +38,15 @@ class RelatedTracks extends React.Component {
     let comments = [<span key={"spanComments" + track.song_id}>&#128488;</span>, ` 3`];
     return (
       <>
-        <img key={"image" + track.song_id} className="nicholas related-tracks band-image" src="https://i1.sndcdn.com/avatars-000153260008-nj3jj1-t200x200.jpg"/>
+      <img key={"image" + track.song_id} className="nicholas related-tracks band-image" src="https://i1.sndcdn.com/avatars-000153260008-nj3jj1-t200x200.jpg"/>
+      <div className="test">
         <p key={"band" + track.song_id} className="nicholas related-tracks band-name">LionsBesideUs</p>
         <p key={"song" + track.song_id} className="nicholas related-tracks song">Last Chance</p>
         <p key={"plays" + track.song_id} className="nicholas related-tracks plays">{plays}</p>
         <p key={"likes" + track.song_id} className="nicholas related-tracks likes">{likes}</p>
         <p key={"reposts" + track.song_id} className="nicholas related-tracks reposts">{reposts}</p>
         <p key={"comments" + track.song_id} className="nicholas related-tracks comments">{comments}</p>
+        </div>
       </>
     )})
   }

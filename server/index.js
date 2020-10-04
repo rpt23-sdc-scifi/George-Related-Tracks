@@ -9,7 +9,6 @@ const port = 3001;
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/relatedTracks/:song', (req, res) => {
-  console.log('STATUS 🤩 ', res.status);
   // console.log(chalk.bgWhite.black(req.params.song));
   db.findTrack(req.params.song, (err, data) => {
     if (err) {
