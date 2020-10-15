@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const chalk = require('chalk');
+const axios = require('axios');
 const db = require('../relatedData.js');
 const app = express();
 
@@ -34,6 +35,10 @@ app.get('/relatedTracks/:song', (req, res) => {
       }
     }
   })
+})
+
+app.get('/:current', (req, res) => {
+  res.sendFile('/Users/nicholastolle/fec-all/soundcloud-related-tracks/public/index.html');
 })
 
 app.listen(port, () => {

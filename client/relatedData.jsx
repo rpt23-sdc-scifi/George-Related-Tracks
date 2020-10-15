@@ -5,6 +5,7 @@ import $ from 'jquery';
 class RelatedTracks extends React.Component {
   constructor(props) {
     super(props);
+    this.song = window.location.pathname.substring(1);
     this.state = {
       currentSong: 1,
       related: [{song_id: 2, plays: 5, likes: 4, reposts: 3}]
@@ -21,7 +22,7 @@ class RelatedTracks extends React.Component {
     // console.log('MOUNT STATE: 🤪', this.state);
     $.ajax(
       {
-        url: '/relatedTracks/1',
+        url: `/relatedTracks/${this.song}`,
         data: {},
         success: data => this.updateRelated(data),
         error: err => console.log(err)
