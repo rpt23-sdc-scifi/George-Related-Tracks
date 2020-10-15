@@ -38,7 +38,7 @@ app.get('/relatedTracks/:song', (req, res) => {
 })
 
 app.get('/:current', (req, res) => {
-  res.sendFile('/Users/nicholastolle/fec-all/soundcloud-related-tracks/public/index.html');
+  res.sendFile(path.join(__dirname,'../public/index.html'));
 })
 
 app.listen(port, () => {
