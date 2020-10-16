@@ -16,6 +16,9 @@ app.get('/relatedTracks/:song', (req, res) => {
       console.log(chalk.red(`Problem obtaining track info: `, err));
     } else {
       let relatedInfo = [];
+      if (data.related.length === 0) {
+        res.send(relatedInfo);
+      }
       for (let i = 0; i < data.related.length; i++) {
         let trackInfo = {};
         trackInfo.song_id = data.related[i];
@@ -26,10 +29,32 @@ app.get('/relatedTracks/:song', (req, res) => {
             trackInfo.plays = info.plays;
             trackInfo.likes = info.likes;
             trackInfo.reposts = info.reposts;
-            relatedInfo.push(trackInfo);
-            if (relatedInfo.length === data.related.length) {
-              res.send(relatedInfo);
-            }
+            axios.get(`http://localhost:1000/songdata/${trackInfo.song_id}`)
+            .then(function (response) {
+              trackInfo.image = response.data.songImage;
+              trackInfo.song = response.data.songName;
+            })
+            .catch(function (error) {
+              console.log('ERROR GETTING IMAGE AND SONG NAME', error);
+              trackInfo.image = 'https://i1.sndcdn.com/avatars-000153260008-nj3jj1-t200x200.jpg';
+              trackInfo.song = 'Last Chance';
+            })
+            .then (function() {
+              axios.get(`http://localhost:2000/artistBio/${trackInfo.song_id}`)
+                .then(function (response) {
+                  trackInfo.band = response.data.data.bandName;
+                })
+                .catch(function (error) {
+                  console.log('ERROR GETTING BAND NAME', error);
+                  trackInfo.band = 'LionsBesideUs';
+                })
+                .then (function() {
+                  relatedInfo.push(trackInfo);
+                  if (relatedInfo.length === data.related.length) {
+                    res.send(relatedInfo);
+                  }
+                })
+            })
           }
         })
       }
