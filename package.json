@@ -11,6 +11,7 @@
     "seed": "node ./seedData.js",
     "test": "jest --collectCoverage",
     "build": "webpack --mode=development -d --watch",
+    "prod": "webpack --mode=production -d --watch",
     "start-server": "nodemon server"
   },
   "dependencies": {
