@@ -14,6 +14,7 @@ app.get('/relatedTracks/:song', (req, res) => {
   db.findTrack(req.params.song, (err, data) => {
     if (err) {
       console.log(chalk.red(`Problem obtaining track info: `, err));
+      res.status(500).send('There was a problem getting the track info');
     } else {
       let relatedInfo = [];
       if (data.related.length === 0) {
@@ -25,6 +26,7 @@ app.get('/relatedTracks/:song', (req, res) => {
         db.findTrack(data.related[i], (err, info) => {
           if (err) {
             console.log(chalk.red(`Can't find secondary track info: `, err));
+            res.status(500).send('Problem locating related track data');
           } else {
             trackInfo.plays = info.plays;
             trackInfo.likes = info.likes;
