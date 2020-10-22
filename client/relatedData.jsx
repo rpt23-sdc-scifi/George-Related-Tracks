@@ -43,14 +43,14 @@ class RelatedTracks extends React.Component {
     let band = [<p key={"band" + track.song_id} className="nicholas related-tracks band-name">{track.band}</p>]
     return (
       <>
-      {image}
-      <div className="test">
-        {band}
-        {song}
-        <p key={"plays" + track.song_id} className="nicholas related-tracks plays">{plays}</p>
-        <p key={"likes" + track.song_id} className="nicholas related-tracks likes">{likes}</p>
-        <p key={"reposts" + track.song_id} className="nicholas related-tracks reposts">{reposts}</p>
-        <p key={"comments" + track.song_id} className="nicholas related-tracks comments">{comments}</p>
+        {image}
+        <div className="test">
+          {band}
+          {song}
+          <p key={"plays" + track.song_id} className="nicholas related-tracks plays">{plays}</p>
+          <p key={"likes" + track.song_id} className="nicholas related-tracks likes">{likes}</p>
+          <p key={"reposts" + track.song_id} className="nicholas related-tracks reposts">{reposts}</p>
+          <p key={"comments" + track.song_id} className="nicholas related-tracks comments">{comments}</p>
         </div>
       </>
     )})
