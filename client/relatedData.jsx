@@ -43,6 +43,7 @@ class RelatedTracks extends React.Component {
     let band = [<p key={"band" + track.song_id} className="nicholas related-tracks band-name">{track.band}</p>]
     return (
       <>
+        <div className="section">
         {image}
         <div className="test">
           {band}
@@ -51,6 +52,7 @@ class RelatedTracks extends React.Component {
           <p key={"likes" + track.song_id} className="nicholas related-tracks likes">{likes}</p>
           <p key={"reposts" + track.song_id} className="nicholas related-tracks reposts">{reposts}</p>
           <p key={"comments" + track.song_id} className="nicholas related-tracks comments">{comments}</p>
+        </div>
         </div>
       </>
     )})
