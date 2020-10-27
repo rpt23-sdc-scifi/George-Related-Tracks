@@ -42,7 +42,7 @@ app.get('/relatedTracks/:song', (req, res) => {
               trackInfo.song = 'Last Chance';
             })
             .then (function() {
-              axios.get(`http://localhost:2000/artistBio/${trackInfo.song_id}`)
+              axios.get(`http://34.220.154.45:2000/artistBio/${trackInfo.song_id}`)
                 .then(function (response) {
                   trackInfo.band = response.data.data.bandName;
                 })
