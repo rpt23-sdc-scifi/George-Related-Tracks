@@ -31,7 +31,7 @@ app.get('/relatedTracks/:song', (req, res) => {
             trackInfo.plays = info.plays;
             trackInfo.likes = info.likes;
             trackInfo.reposts = info.reposts;
-            axios.get(`http://localhost:1000/songdata/${trackInfo.song_id}`)
+            axios.get(`http://52.37.102.63:3005/songdata/${trackInfo.song_id}`)
             .then(function (response) {
               trackInfo.image = response.data.songImage;
               trackInfo.song = response.data.songName;
