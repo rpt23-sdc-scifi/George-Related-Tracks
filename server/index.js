@@ -3,11 +3,19 @@ const path = require('path');
 const chalk = require('chalk');
 const axios = require('axios');
 const db = require('../relatedData.js');
+const expressStaticGzip = require('express-static-gzip');
 const app = express();
 
 const port = 3001;
 
-app.use(express.static(path.join(__dirname, '../public')));
+// app.use(express.static(path.join(__dirname, '../public')));
+app.use('/', expressStaticGzip(path.join(__dirname, '../public'), {
+  enableBrotli: true,
+   orderPreference: ['br', 'gz'],
+   setHeaders: function (res, path) {
+      res.setHeader("Cache-Control", "public, max-age=31536000");
+   }
+}))
 
 app.get('/relatedTracks/:song', (req, res) => {
   // console.log(chalk.bgWhite.black(req.params.song));
