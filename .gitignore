@@ -3,3 +3,4 @@ bundle.js
 coverage
 .gz
 bundle.js.br
+bundle.js.gz
