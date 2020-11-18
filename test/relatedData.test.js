@@ -100,32 +100,3 @@ describe('image exists', () => {
     }
   })
 });
-
-// describe('state', () => {
-//   it ('state should have currentSong', async done => {
-//     try {
-//       let server = sinon.fakeServer.create();
-//       server.respondWith('GET', '/relatedTracks/:song', '[{song_id: 2, plays: 5, likes: 4, reposts: 3}]');
-//       const wrapper = await mount(<RelatedTracks />);
-//       await expect(wrapper.state).toHaveProperty('currentSong');
-//       server.respond();
-//       server.restore();
-//       done();
-//     } catch (error) {
-//       done(error);
-//     }
-//   });
-//   it ('state should have related', async done => {
-//     try {
-//       let server = sinon.fakeServer.create();
-//       server.respondWith('GET', '/relatedTracks/:song', '[{song_id: 2, plays: 5, likes: 4, reposts: 3}]');
-//       const wrapper = await mount(<RelatedTracks />);
-//       await expect(wrapper.state).toHaveProperty('related');
-//       server.respond();
-//       server.restore();
-//       done();
-//     } catch (error) {
-//       done(error);
-//     }
-//   })
-// });
