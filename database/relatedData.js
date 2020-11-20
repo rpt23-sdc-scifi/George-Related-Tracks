@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 const chalk = require('chalk');
 
-mongoose.connect('mongodb://localhost/test1');
+mongoose.connect('mongodb://localhost/relatedTracks', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
 
 const db = mongoose.connection;
 db.on('error', function () {
@@ -21,7 +26,7 @@ const relatedSchema = new mongoose.Schema({
 
 const Track = mongoose.model('Track', relatedSchema);
 
-let saveTrack = function (trackData, cb) {
+const saveTrack = function (trackData, cb) {
   let track = new Track(trackData);
   track.save((err, track) => {
     if (err) {
@@ -34,7 +39,7 @@ let saveTrack = function (trackData, cb) {
   })
 };
 
-let findTrack = function (id, cb) {
+const findTrack = function (id, cb) {
   Track.findOne({ song_id: id }, (err, track) => {
     if (err) {
       cb(err);
@@ -44,8 +49,8 @@ let findTrack = function (id, cb) {
   })
 };
 
-let updateTrack = function (id, trackData, cb) {
-  Track.update({ song_id: id }, trackData, (err, track) => {
+const updateTrack = function (id, trackData, cb = () => { }) {
+  Track.findOneAndUpdate({ song_id: id }, trackData, (err, track) => {
     if (err) {
       console.log(chalk.red('Could not update track'));
       cb(err);
@@ -56,7 +61,7 @@ let updateTrack = function (id, trackData, cb) {
   })
 };
 
-let deleteTrack = function (id, cb) {
+const deleteTrack = function (id, cb) {
   Track.findOneAndDelete({ song_id: id }, (err, track) => {
     if (err) {
       console.log(chalk.red('Could not delete track'));
@@ -68,4 +73,16 @@ let deleteTrack = function (id, cb) {
   })
 };
 
-module.exports = { saveTrack, findTrack, deleteTrack, updateTrack };
+const drop = function (cb) {
+  mongoose.connection.dropCollection('tracks', (err, result) => {
+    if (err) {
+      console.log(chalk.red('Could not drop collection tracks'));
+      cb(err, null);
+    } else {
+      console.log(chalk.magenta('collection tracks dropped'));
+      cb(null, result);
+    };
+  })
+};
+
+module.exports = { saveTrack, findTrack, deleteTrack, updateTrack, drop };

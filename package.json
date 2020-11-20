@@ -8,16 +8,14 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "seed": "node ./seedData.js",
-    "test": "jest --collectCoverage",
+    "seedMongo": "node ./database/seedMongoData.js",
+    "test": "mocha",
     "build": "webpack --mode=development -d --watch",
-    "prod": "webpack --mode=production -d --watch",
+    "prod": "webpack --mode=production",
     "start-server": "nodemon server"
   },
   "dependencies": {
-    "@shelf/jest-mongodb": "^1.2.3",
     "axios": "^0.20.0",
-    "babel-jest": "^26.3.0",
     "chalk": "^4.1.0",
     "express": "^4.17.1",
     "express-static-gzip": "^2.1.0",
@@ -37,37 +35,17 @@
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
     "brotli-webpack-plugin": "^1.1.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "compression-webpack-plugin": "^6.0.4",
     "css-loader": "^4.3.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
-    "jest": "^26.4.2",
+    "mocha": "^8.2.1",
     "nodemon": "^2.0.5",
     "style-loader": "^2.0.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
-  },
-  "transform": {
-    "^.+\\.js$": "babel-jest"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "client",
-      "server",
-      "public"
-    ],
-    "preset": "@shelf/jest-mongodb",
-    "setupFilesAfterEnv": [
-      "./node_modules/jest-enzyme/lib/index.js"
-    ],
-    "unmockedModulePathPatterns": [
-      "node_modules/react/",
-      "node_modules/enzyme/"
-    ]
   }
 }

@@ -25,7 +25,10 @@ class RelatedTracks extends React.Component {
         url: `/relatedTracks/${this.song}`,
         method: 'GET',
         data: {},
-        success: data => this.updateRelated(data),
+        success: (data) => {
+          console.log(data)
+          this.updateRelated(data)
+        },
         error: err => console.log(err)
       }
     );
