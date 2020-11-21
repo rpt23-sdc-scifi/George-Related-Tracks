@@ -32,8 +32,24 @@ let emptyRecord = function (id) {
   return newRecord
 }
 
-let generateRecords = function (recordCount = 100, maxRelatives = 10, cb) {
+// let generateOneRecord = function (recordCount = 100, maxRelatives = 10, cb) {
+//   for (var i = 1; i <= recordCount; i++) {
+//     let relationshipCount = Math.ceil(Math.random() * maxRelatives);
+//     const record = emptyRecord(i);
 
+//     while (relationshipCount > 0) {
+//       let relative = Math.ceil(Math.random() * recordCount);
+//       if (!record['related'].includes(relative) && relative !== i) {
+//         record['related'].push(relative);
+//         relationshipCount--
+//       }
+//     }
+//     cb(record)
+//   }
+// }
+
+let generateManyRecords = function (recordCount = 100, maxRelatives = 10) {
+  let records = [];
   for (var i = 1; i <= recordCount; i++) {
     let relationshipCount = Math.ceil(Math.random() * maxRelatives);
     const record = emptyRecord(i);
@@ -45,8 +61,9 @@ let generateRecords = function (recordCount = 100, maxRelatives = 10, cb) {
         relationshipCount--
       }
     }
-    cb(record)
+    records.push(record);
   }
+  return records
 }
 
 // let generateReciprocalRecords = function (recordCount = 100, maxRelatives = 10, cb) {
@@ -77,4 +94,4 @@ let generateRecords = function (recordCount = 100, maxRelatives = 10, cb) {
 //   cb(records)
 // }
 
-module.exports = { emptyRecord, generateRecords }
+module.exports = { emptyRecord, generateManyRecords }
