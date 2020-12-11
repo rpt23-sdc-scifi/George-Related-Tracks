@@ -4,3 +4,7 @@ coverage
 .gz
 bundle.js.br
 bundle.js.gz
+**/data
+records1.json
+records2.json
+records3.json

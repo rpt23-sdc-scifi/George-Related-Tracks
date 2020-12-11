@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 let emptyRecord = function (id) {
   // generates a record from a template with 'song_id' id,
   // an empty array for the 'related' key,
@@ -32,66 +34,61 @@ let emptyRecord = function (id) {
   return newRecord
 }
 
-// let generateOneRecord = function (recordCount = 100, maxRelatives = 10, cb) {
-//   for (var i = 1; i <= recordCount; i++) {
-//     let relationshipCount = Math.ceil(Math.random() * maxRelatives);
-//     const record = emptyRecord(i);
+// let writeManyJSONRecords = function (recordCount = 100, maxRelatives = 10, grandTotal = recordCount, batchCount = 0) {
+//   return new Promise((resolve) => {
+//     var records = [];
+//     let start = recordCount * batchCount;
+//     for (var i = 1; i <= recordCount; i++) {
+//       let relationshipCount = Math.ceil(Math.random() * maxRelatives);
+//       const record = emptyRecord(start + i);
 
-//     while (relationshipCount > 0) {
-//       let relative = Math.ceil(Math.random() * recordCount);
-//       if (!record['related'].includes(relative) && relative !== i) {
-//         record['related'].push(relative);
-//         relationshipCount--
+//       while (relationshipCount > 0) {
+//         let relative = Math.ceil(Math.random() * grandTotal);
+//         if (!record['related'].includes(relative) && relative !== (start + i)) {
+//           record['related'].push(relative);
+//           relationshipCount--
+//         }
 //       }
+//       records.push(record);
 //     }
-//     cb(record)
-//   }
+//     resolve()
+//   })
 // }
 
-let generateManyRecords = function (recordCount = 100, maxRelatives = 10) {
-  let records = [];
-  for (var i = 1; i <= recordCount; i++) {
+let generateRecordPromise = function (id, maxRelatives = 10, grandTotal = 100) {
+  return new Promise((resolve) => {
     let relationshipCount = Math.ceil(Math.random() * maxRelatives);
-    const record = emptyRecord(i);
+    const record = emptyRecord(id);
 
     while (relationshipCount > 0) {
-      let relative = Math.ceil(Math.random() * recordCount);
-      if (!record['related'].includes(relative) && relative !== i) {
+      let relative = Math.ceil(Math.random() * grandTotal);
+      if (!record['related'].includes(relative) && relative !== id) {
         record['related'].push(relative);
         relationshipCount--
       }
     }
-    records.push(record);
-  }
-  return records
+    resolve(record)
+  })
 }
 
-// let generateReciprocalRecords = function (recordCount = 100, maxRelatives = 10, cb) {
-//   let records = {};
+let generateManyRecordPromises = function (recordCount = 100, maxRelatives = 10, grandTotal = recordCount, batchCount = 0) {
+  return new Promise((resolve) => {
+    let records = [];
+    for (var i = 1 + (batchCount * recordCount); i <= recordCount + (batchCount * recordCount); i++) {
+      let relationshipCount = Math.ceil(Math.random() * maxRelatives);
+      const record = emptyRecord(i);
 
-//   for (var i = 1; i <= recordCount; i++) {
-//     let relationshipCount = Math.ceil(Math.random() * maxRelatives);
-//     if (records[i] === undefined) {
-//       records[i] = emptyRecord(i);
-//     }
-//     relationshipCount = relationshipCount - records[i]['related'].length;
-//     while (relationshipCount > 0) {
-//       let relative = Math.ceil(Math.random() * recordCount);
-//       if (!records[i]['related'].includes(relative) && relative !== i) {
-//         records[i]['related'].push(relative);
+      while (relationshipCount > 0) {
+        let relative = Math.ceil(Math.random() * grandTotal);
+        if (!record['related'].includes(relative) && relative !== i) {
+          record['related'].push(relative);
+          relationshipCount--
+        }
+      }
+      records.push(record);
+    }
+    resolve(records)
+  })
+}
 
-//         if (records[relative] === undefined) {
-//           records[relative] = emptyRecord(relative);
-//         }
-//         if (!records[relative]['related'].includes(i)) {
-//           records[relative]['related'].push(i);
-//         }
-
-//         relationshipCount--
-//       }
-//     }
-//   }
-//   cb(records)
-// }
-
-module.exports = { emptyRecord, generateManyRecords }
+module.exports = { emptyRecord, generateRecordPromise, generateManyRecordPromises }
