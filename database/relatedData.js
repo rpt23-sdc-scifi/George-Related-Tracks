@@ -8,16 +8,15 @@ mongoose.connect('mongodb://localhost/relatedTracks', {
   useFindAndModify: false,
 });
 
-const db = mongoose.connection;
-db.on('error', function () {
+mongoose.connection.on('error', function () {
   console.log(chalk.red('mongoose connection error'));
 });
-db.once('open', function () {
+mongoose.connection.once('open', function () {
   console.log(chalk.green('mongoose connected'));
 });
 
 const relatedSchema = new mongoose.Schema({
-  song_id: { type: Number, unique: true },
+  song_id: Number,
   plays: Number,
   likes: Number,
   reposts: Number,
@@ -35,6 +34,22 @@ const saveTrack = function (trackData, cb) {
     } else {
       console.log(chalk.blue(`Track ${track.song_id} saved`));
       cb(null, track);
+    }
+  })
+};
+
+const saveManyTracks = function (tracksData, cb) {
+  // console.log('tracksData');
+  // console.log(tracksData);
+  Track.insertMany(tracksData, (err, tracks) => {
+    console.log('inserting Many')
+    if (err) {
+      console.log(chalk.red('Problem saving tracks', err));
+      cb(err);
+    } else {
+      cb(null, tracks);
+      // console.log(tracks);
+      console.log(`saved tracks ${tracks[0].song_id}+`)
     }
   })
 };
@@ -85,4 +100,4 @@ const drop = function (cb) {
   })
 };
 
-module.exports = { saveTrack, findTrack, deleteTrack, updateTrack, drop };
+module.exports = { saveTrack, findTrack, deleteTrack, updateTrack, drop, saveManyTracks };
