@@ -24,19 +24,19 @@ const streams = [
 
 function seedMongo() {
   console.log('called seedMongo; attempting db drop')
-  // relatedData.drop((err) => {
-  //   if (err) {
-  //     console.log(chalk.red(err));
-  //   } else {
-  //     console.log(chalk.blue('dropped'));
-  //   }
-  new Multistream(streams)
-    .pipe(JSONStream.parse('*'))
-    .pipe(writableStream)
-    .on('error', (err) => {
-      console.log(err);
-    })
-  // })
+  relatedData.drop((err) => {
+    if (err) {
+      console.log(chalk.red(err));
+    } else {
+      console.log(chalk.blue('dropped'));
+    }
+    new Multistream(streams)
+      .pipe(JSONStream.parse('*'))
+      .pipe(writableStream)
+      .on('error', (err) => {
+        console.log(err);
+      })
+  })
 }
 
 seedMongo();

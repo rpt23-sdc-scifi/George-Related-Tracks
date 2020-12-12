@@ -13,7 +13,8 @@
     "test": "mocha",
     "build": "webpack --mode=development -d --watch",
     "prod": "webpack --mode=production",
-    "start-server": "nodemon server"
+    "start-server": "nodemon server",
+    "stress": "k6 run script.js"
   },
   "dependencies": {
     "JSONStream": "^1.3.5",
@@ -26,6 +27,7 @@
     "jquery": "^3.5.1",
     "mongoose": "^5.10.6",
     "multistream": "^4.0.1",
+    "newrelic": "^7.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",

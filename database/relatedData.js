@@ -39,8 +39,6 @@ const saveTrack = function (trackData, cb) {
 };
 
 const saveManyTracks = function (tracksData, cb) {
-  // console.log('tracksData');
-  // console.log(tracksData);
   Track.insertMany(tracksData, (err, tracks) => {
     console.log('inserting Many')
     if (err) {
@@ -48,7 +46,6 @@ const saveManyTracks = function (tracksData, cb) {
       cb(err);
     } else {
       cb(null, tracks);
-      // console.log(tracks);
       console.log(`saved tracks ${tracks[0].song_id}+`)
     }
   })
