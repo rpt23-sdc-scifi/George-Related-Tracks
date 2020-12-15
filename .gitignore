@@ -1,8 +1,8 @@
 node_modules
-bundle.js
 coverage
 .gz
-bundle.js.br
-bundle.js.gz
+relatedTracks-bundle.js
+relatedTracks-bundle.js.br
+relatedTracks-bundle.js.gz
 **/data
 newrelic_agent.log

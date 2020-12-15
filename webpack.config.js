@@ -5,7 +5,7 @@ const BrotliPlugin = require('brotli-webpack-plugin');
 module.exports = {
   entry: './client/index.jsx',
   output: {
-    filename: 'bundle.js',
+    filename: 'relatedTracks-bundle.js',
     path: path.resolve(__dirname, 'public'),
   },
   module: {
@@ -15,7 +15,7 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {presets: ['@babel/preset-react', '@babel/preset-env']}
+          options: { presets: ['@babel/preset-react', '@babel/preset-env'] }
         }
       },
       {
@@ -26,17 +26,17 @@ module.exports = {
   },
   plugins: [
     new CompressionPlugin({
-    filename: '[path][base].gz[query]',
-    algorithm: 'gzip',
-    test: /\.js$|\.css$|\.html$/,
-    threshold: 10240,
-    minRatio: 0.7
+      filename: '[path][base].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.7
     }),
     new BrotliPlugin({
-    asset: '[path].br[query]',
-    test: /\.js$|\.css$|\.html$/,
-    threshold: 10240,
-    minRatio: 0.7
+      asset: '[path].br[query]',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.7
     })
-   ]
+  ]
 };
