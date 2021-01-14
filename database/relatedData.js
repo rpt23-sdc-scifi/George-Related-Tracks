@@ -13,10 +13,11 @@ console.log('did connect?')
 mongoose.connection.on('error', function () {
   console.log(chalk.red('mongoose connection error'));
 });
+console.log(1)
 mongoose.connection.once('open', function () {
   console.log(chalk.green('mongoose connected'));
 });
-
+console.log(2)
 const relatedSchema = new mongoose.Schema({
   song_id: Number,
   plays: Number,
@@ -24,9 +25,9 @@ const relatedSchema = new mongoose.Schema({
   reposts: Number,
   related: [Number]
 });
-
+console.log(3)
 const Track = mongoose.model('Track', relatedSchema);
-
+console.log(4)
 const saveTrack = function (trackData, cb) {
   let track = new Track(trackData);
   track.save((err, track) => {
@@ -98,5 +99,5 @@ const drop = function (cb) {
     };
   })
 };
-
+console.log(5)
 module.exports = { saveTrack, findTrack, deleteTrack, updateTrack, drop, saveManyTracks };
