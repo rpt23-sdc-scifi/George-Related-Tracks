@@ -6,3 +6,4 @@ relatedTracks-bundle.js.br
 relatedTracks-bundle.js.gz
 **/data
 newrelic_agent.log
+dump.rdb
