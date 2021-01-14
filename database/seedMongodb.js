@@ -8,10 +8,11 @@ const Multistream = require('multistream');
 console.log('defined dependencies')
 
 const relatedData = require('./relatedData.js');
+console.log('defined connection')
 const json1 = require(`${__dirname}/data/records1.json`);
 const json2 = require(`${__dirname}/data/records2.json`);
 const json3 = require(`${__dirname}/data/records3.json`);
-console.log('defined internal dependencies')
+console.log('defined jsons')
 
 const outputDBConfig = {
   dbURL: 'mongodb://localhost:27017/relatedTracks',
