@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const chalk = require('chalk');
+console.log('trying to connect')
 
 mongoose.connect('mongodb://localhost/relatedTracks', {
   useNewUrlParser: true,
@@ -7,6 +8,7 @@ mongoose.connect('mongodb://localhost/relatedTracks', {
   useCreateIndex: true,
   useFindAndModify: false,
 });
+console.log('did connect?')
 
 mongoose.connection.on('error', function () {
   console.log(chalk.red('mongoose connection error'));
