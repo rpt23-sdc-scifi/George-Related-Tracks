@@ -9,47 +9,37 @@ console.log('defined dependencies')
 
 const relatedData = require('./relatedData.js');
 console.log('defined connection')
-try {
-  const json1 = require(`${__dirname}/data/records1.json`);
-  const json2 = require(`${__dirname}/data/records2.json`);
-  const json3 = require(`${__dirname}/data/records3.json`);
 
-
-  console.log('defined jsons')
-
-  const outputDBConfig = {
-    dbURL: 'mongodb://localhost:27017/relatedTracks',
-    collection: 'tracks',
-    batchSize: 100
-  }
-  const writableStream = streamToMongoDB(outputDBConfig);
-  const streams = [
-    fs.createReadStream(__dirname + '/data/records1.json'),
-    fs.createReadStream(__dirname + '/data/records2.json'),
-    fs.createReadStream(__dirname + '/data/records3.json')
-  ]
-
-  console.log('created streams')
-
-  function seedMongo() {
-    console.log('called seedMongo; attempting db drop')
-    relatedData.drop((err) => {
-      if (err) {
-        console.log(chalk.red(err));
-      } else {
-        console.log(chalk.blue('dropped'));
-      }
-      new Multistream(streams)
-        .pipe(JSONStream.parse('*'))
-        .pipe(writableStream)
-        .on('error', (err) => {
-          console.log(err);
-        })
-    })
-  }
-  console.log('defined seeding function')
-
-  seedMongo();
-} catch (err) {
-  console.log(err)
+const outputDBConfig = {
+  dbURL: 'mongodb://localhost:27017/relatedTracks',
+  collection: 'tracks',
+  batchSize: 100
 }
+const writableStream = streamToMongoDB(outputDBConfig);
+let streams = []
+
+for (var i = 0; i < 10; i++) {
+  streams[i] = fs.createReadStream(`${__dirname}/data/records${i}.json`)
+}
+
+console.log('created streams')
+
+function seedMongo() {
+  console.log('called seedMongo; attempting db drop')
+  relatedData.drop((err) => {
+    if (err) {
+      console.log(chalk.red(err));
+    } else {
+      console.log(chalk.blue('dropped'));
+    }
+    new Multistream(streams)
+      .pipe(JSONStream.parse('*'))
+      .pipe(writableStream)
+      .on('error', (err) => {
+        console.log(err);
+      })
+  })
+}
+console.log('defined seeding function')
+
+seedMongo();
