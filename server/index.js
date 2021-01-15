@@ -110,13 +110,15 @@ app.delete('/relatedTracks/:songId', (req, res) => {
   })
 })
 
-app.get('/loaderio-5977e7bcffae4332f6012075686385b8', (req, res) => {
-  console.log('loader.io route');
-  res.sendFile(path.join(__dirname, '../test/loaderio-5977e7bcffae4332f6012075686385b8.txt'))
-})
-
 app.get('/:current', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+  let current = req.params.current;
+  console.log('current: ', current);
+  if (current === '/loaderio-5977e7bcffae4332f6012075686385b8') {
+    console.log('loader.io route');
+    res.sendFile(path.join(__dirname, '../test/loaderio-5977e7bcffae4332f6012075686385b8.txt'))
+  } else {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+  }
 })
 
 app.listen(port, () => {
