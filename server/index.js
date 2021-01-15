@@ -3,11 +3,17 @@ const express = require('express');
 const path = require('path');
 const chalk = require('chalk');
 const axios = require('axios');
-const db = require('../database/relatedData.js');
 const expressStaticGzip = require('express-static-gzip');
-const app = express();
+const redis = require('redis');
 
-const port = 3001;
+const db = require('../database/relatedData.js');
+const { getTraceMetadata } = require('newrelic');
+
+const port = process.env.PORT || 3001;
+const redis_port = process.env.REDIS_PORT || 6379
+
+const redisClient = redis.createClient(redis_port)
+const app = express();
 
 // app.use(express.static(path.join(__dirname, '../public')));
 app.use('/', expressStaticGzip(path.join(__dirname, '../public'), {
@@ -31,66 +37,19 @@ app.post('/relatedTracks', (req, res) => {
   })
 })
 
-// app.get('/relatedTracks/:song', (req, res) => {
-//   // console.log(chalk.bgWhite.black(req.params.song));
-//   db.findTrack(req.params.song, (err, data) => {
-//     if (err) {
-//       // console.log(chalk.red(`Problem obtaining track info: `, err));
-//       console.log(chalk.red(`Problem obtaining track info`));
-//       res.status(500).send('There was a problem getting the track info');
-//     } else {
-//       let relatedInfo = [];
-//       if (data.related.length === 0) {
-//         res.send(relatedInfo);
-//       }
-//       for (let i = 0; i < data.related.length; i++) {
-//         let trackInfo = {};
-//         trackInfo.song_id = data.related[i];
-//         db.findTrack(data.related[i], (err, info) => {
-//           if (err) {
-//             // console.log(chalk.red(`Can't find secondary track info: `, err));
-//             console.log(chalk.red(`Can't find secondary track info`));
-//             res.status(500).send('Problem locating related track data');
-//           } else {
-//             trackInfo.plays = info.plays;
-//             trackInfo.likes = info.likes;
-//             trackInfo.reposts = info.reposts;
-//             axios.get(`localhost:3005/songdata/${trackInfo.song_id}`)
-//               .then(function (response) {
-//                 trackInfo.image = response.data.songImage;
-//                 trackInfo.song = response.data.songName;
-//               })
-//               .catch(function (error) {
-//                 // console.log('ERROR GETTING IMAGE AND SONG NAME', error);
-//                 console.log('ERROR GETTING IMAGE AND SONG NAME');
-//                 trackInfo.image = 'https://teamstructureshopping.s3.amazonaws.com/icons/error.png';
-//                 trackInfo.song = `SongTitle ${trackInfo.song_id}`;
-//               })
-//               .then(function () {
-//                 axios.get(`localhost:2000/artistBio/${trackInfo.song_id}`)
-//                   .then(function (response) {
-//                     trackInfo.band = response.data.data.bandName;
-//                   })
-//                   .catch(function (error) {
-//                     // console.log('ERROR GETTING BAND NAME', error);
-//                     console.log('ERROR GETTING BAND NAME');
-//                     trackInfo.band = `BandName ${trackInfo.song_id}`;
-//                   })
-//                   .then(function () {
-//                     relatedInfo.push(trackInfo);
-//                     if (relatedInfo.length === data.related.length) {
-//                       res.send(relatedInfo);
-//                     }
-//                   })
-//               })
-//           }
-//         })
-//       }
-//     }
-//   })
-// })
+function cache(req, res, next) {
+  console.log(`checking cache for song ${req.params.song}`);
+  redisClient.get(req.params.song, (error, cachedData) => {
+    if (error) throw error;
+    if (cachedData != null) {
+      res.send(cachedData)
+    } else {
+      next();
+    }
+  });
+}
 
-app.get('/relatedTracks/:song', (req, res) => {
+app.get('/relatedTracks/:song', cache, (req, res) => {
 
   db.findTrack(req.params.song, (err, data) => {
     if (err) {
@@ -106,7 +65,6 @@ app.get('/relatedTracks/:song', (req, res) => {
         trackInfo.song_id = data.related[i];
         db.findTrack(data.related[i], (err, info) => {
           if (err) {
-            // console.log(chalk.red(`Can't find secondary track info: `, err));
             console.log(chalk.red(`Can't find secondary track info`));
             res.status(500).send('Problem locating related track data');
           } else {
@@ -119,6 +77,7 @@ app.get('/relatedTracks/:song', (req, res) => {
 
             relatedInfo.push(trackInfo);
             if (relatedInfo.length === data.related.length) {
+              redisClient.setex(data.song_id, 3600, JSON.stringify(relatedInfo));
               res.send(relatedInfo);
             }
           }

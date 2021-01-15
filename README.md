@@ -18,6 +18,7 @@ DELETE /relatedTracks/:songId
 ```sh
 npm install
 npm run seed
+redis-server
 npm run prod
 npm run start-server
 ```
