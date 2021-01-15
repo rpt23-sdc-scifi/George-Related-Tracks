@@ -1,14 +1,11 @@
-console.log('file opened')
 const chalk = require('chalk');
 const { dirname } = require('path');
 const streamToMongoDB = require('stream-to-mongo-db').streamToMongoDB;
 const JSONStream = require('JSONStream');
 const fs = require('fs');
 const Multistream = require('multistream');
-console.log('defined dependencies')
 
 const relatedData = require('./relatedData.js');
-console.log('defined connection')
 
 const outputDBConfig = {
   dbURL: 'mongodb://localhost:27017/relatedTracks',
@@ -21,8 +18,6 @@ let streams = []
 for (var i = 0; i < 10; i++) {
   streams[i] = fs.createReadStream(`${__dirname}/data/records${i}.json`)
 }
-
-console.log('created streams')
 
 function seedMongo() {
   console.log('called seedMongo; attempting db drop')
@@ -40,6 +35,5 @@ function seedMongo() {
       })
   })
 }
-console.log('defined seeding function')
 
 seedMongo();
