@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const chalk = require('chalk');
 
-mongoose.connect('mongodb://54.152.253.138/relatedTracks', {
+mongoose.connect('mongodb://localhost/relatedTracks', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
