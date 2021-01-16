@@ -42,6 +42,7 @@ function cache(req, res, next) {
   redisClient.get(req.params.song, (error, cachedData) => {
     if (error) throw error;
     if (cachedData != null) {
+      console.log('cachedData: ', cachedData);
       res.send(cachedData)
     } else {
       next();
@@ -109,17 +110,6 @@ app.delete('/relatedTracks/:songId', (req, res) => {
     }
   })
 })
-
-// app.get('/:current', (req, res) => {
-//   let current = req.params.current;
-//   console.log('current: ', current);
-//   if (current === 'loaderio-5977e7bcffae4332f6012075686385b8') {
-//     console.log('loader.io route');
-//     res.sendFile(path.join(__dirname, '../public/loaderio-5977e7bcffae4332f6012075686385b8.txt'))
-//   } else {
-//     res.sendFile(path.join(__dirname, '../public/index.html'));
-//   }
-// })
 
 app.get('/:current', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));

@@ -15,6 +15,9 @@ class RelatedTracks extends React.Component {
   }
 
   updateRelated(data) {
+    console.log('updating state');
+    console.log('old state: ', this.state.related);
+    console.log('to be state: ', data);
     this.setState({ related: data });
   }
 
